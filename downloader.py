@@ -21,7 +21,11 @@ def fetch_video_details(url):
 
 # Function to get file size
 def get_file_size(stream):
-    return round(stream.filesize / (1024 * 1024), 2)  # Convert bytes to MB
+    try:
+        return round(stream.filesize_approx / (1024 * 1024), 2)  # Approximate file size in MB
+    except Exception as e:
+        print(f"Error fetching file size: {e}")
+        return 0
 
 # Function to download a stream into memory (BytesIO) instead of saving locally
 def download_stream(stream, download_type):
